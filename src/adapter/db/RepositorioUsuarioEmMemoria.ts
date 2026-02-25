@@ -1,4 +1,4 @@
-import Usuario from "../model/Usuario";
+import Usuario from "@/core/fundamentos/usuario/model/Usuario"
 
 export default class RepositorioUsuarioEmMemoria {
   private static readonly items: Usuario [] = []
