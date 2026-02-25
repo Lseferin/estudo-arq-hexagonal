@@ -28,6 +28,5 @@ export default class RegistrarUsuario
     }
 
     this.repositorio.inserir(novoUsuario)
-    console.log(`\n\n${JSON.stringify(novoUsuario)}`)
   }
 }
