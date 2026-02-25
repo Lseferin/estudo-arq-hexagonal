@@ -3,11 +3,21 @@ import Usuario from "../model/Usuario";
 import RepositorioUsuarioEmMemoria from "./RepositorioUsuarioEmMemoria";
 import Erros from "../../shared/Erros";
 import Id from "../../shared/Id";
+import ProvedorCriptografia from "./ProvedorCriptografia";
 
-export default class RegistrarUsuario implements CasoDeUso<Usuario, void> {
+export default class RegistrarUsuario 
+  implements CasoDeUso<Usuario, void>
+{
+
+  constructor(
+    private provedorCripto: ProvedorCriptografia
+  ) {}
+
   async executar(usuario: Usuario): Promise<void> {
-    const senhaCripto = usuario.senha.split('').reverse().join('')
     const repo = new RepositorioUsuarioEmMemoria()
+
+    const senhaCripto = this.provedorCripto.criptografar(usuario.senha)
+
     const usuarioExistente = await repo.buscarPorEmail(usuario.email)
     if(usuarioExistente) throw new Error(Erros.USUARIO_JA_EXISTE)
 
